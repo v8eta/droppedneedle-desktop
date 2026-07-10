@@ -14,7 +14,7 @@ export default defineConfig(
 		// Vendored upstream files lint under upstream's config, not ours (see
 		// VENDORED.md); desktop-authored code under src/lib/desktop is still linted.
 		// svelte-check continues to typecheck the vendored files.
-		ignores: ['src/lib/**', '!src/lib/desktop/**']
+		ignores: ['src/lib/**', '!src/lib/desktop/**', 'src/routes/search/**']
 	},
 	js.configs.recommended,
 	ts.configs.recommended,
