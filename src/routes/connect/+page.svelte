@@ -102,7 +102,11 @@
 
 				{#if showCertToggle}
 					<label class="label cursor-pointer justify-start gap-3">
-						<input type="checkbox" class="checkbox checkbox-warning" bind:checked={acceptInvalidCerts} />
+						<input
+							type="checkbox"
+							class="checkbox checkbox-warning"
+							bind:checked={acceptInvalidCerts}
+						/>
 						<span class="label-text">Trust this server's self-signed certificate</span>
 					</label>
 				{/if}

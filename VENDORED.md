@@ -11,7 +11,7 @@ Vendored files keep their upstream-relative paths under `src/lib/` (plus
 `src/app.css` and `static/fonts/*`), so a plain
 `diff -r <upstream>/frontend/src/lib src/lib` shows exactly what diverges.
 Files are **byte-identical to upstream at the pinned commit** unless listed
-under *Modified files* below; every intentional edit is marked in-code with a
+under _Modified files_ below; every intentional edit is marked in-code with a
 `// DESKTOP:` comment. All desktop-only code lives in `src/lib/desktop/` and
 `src/routes/`, which the sync tooling never touches.
 
@@ -20,13 +20,13 @@ Re-sync with `node scripts/sync-upstream.mjs <path-to-upstream-checkout>`
 
 ## Modified files
 
-| File | Modification |
-| --- | --- |
-| `src/lib/api/client.ts` | 401 handler → `notifySessionExpired()` instead of `window.location.href`; dropped `credentials: 'include'` (bearer-only); `globalClient` fetch → `desktopFetch` |
-| `src/lib/api/client.spec.ts` | 401 test asserts the session-expired notification instead of store-clear + redirect |
-| `src/lib/api/api-utils.ts` | `getApiUrl` resolves against the runtime server profile instead of `PUBLIC_API_URL` (rewritten) |
-| `src/lib/utils/navigationAbort.ts` | inner `fetch` → `desktopFetch` |
-| `src/lib/utils/navigationAbort.test.ts` | signal assertions functional instead of identity (transport composes signals); headers read via `Headers.get` |
+| File                                    | Modification                                                                                                                                                    |
+| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/api/client.ts`                 | 401 handler → `notifySessionExpired()` instead of `window.location.href`; dropped `credentials: 'include'` (bearer-only); `globalClient` fetch → `desktopFetch` |
+| `src/lib/api/client.spec.ts`            | 401 test asserts the session-expired notification instead of store-clear + redirect                                                                             |
+| `src/lib/api/api-utils.ts`              | `getApiUrl` resolves against the runtime server profile instead of `PUBLIC_API_URL` (rewritten)                                                                 |
+| `src/lib/utils/navigationAbort.ts`      | inner `fetch` → `desktopFetch`                                                                                                                                  |
+| `src/lib/utils/navigationAbort.test.ts` | signal assertions functional instead of identity (transport composes signals); headers read via `Headers.get`                                                   |
 
 ## Unmodified files
 

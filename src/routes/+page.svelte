@@ -76,7 +76,9 @@
 				</p>
 				<div class="max-h-64 overflow-y-auto font-mono text-xs">
 					{#if events.length === 0}
-						<p class="opacity-50">No events yet — the stream is quiet until the server emits one.</p>
+						<p class="opacity-50">
+							No events yet — the stream is quiet until the server emits one.
+						</p>
 					{/if}
 					{#each events as line, i (i)}
 						<div>{line}</div>
@@ -89,8 +91,8 @@
 			<div class="card-body">
 				<h2 class="card-title text-base">Media proxy spike</h2>
 				<p class="text-xs opacity-60">
-					The avatar below loads an authenticated API image through the dn:// proxy. A broken
-					image means the proxy needs work; a dimmed placeholder is fine if no avatar is set.
+					The avatar below loads an authenticated API image through the dn:// proxy. A broken image
+					means the proxy needs work; a dimmed placeholder is fine if no avatar is set.
 				</p>
 				{#if authStore.user}
 					<img

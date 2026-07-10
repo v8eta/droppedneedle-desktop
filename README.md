@@ -8,7 +8,7 @@ follow artists, and browse your library. Built with Tauri 2 + Svelte 5.
 > **Status: pre-alpha.** Milestone 1 (connect + sign-in + session) is under
 > construction. Not affiliated with the DroppedNeedle project.
 
-This is deliberately *not* a music player: DroppedNeedle already speaks
+This is deliberately _not_ a music player: DroppedNeedle already speaks
 OpenSubsonic and Jellyfin, so players like Feishin, Supersonic and Symfonium
 cover playback. This app is the workbench — the management surface, native.
 
