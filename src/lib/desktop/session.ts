@@ -148,6 +148,16 @@ export async function logout(): Promise<void> {
 	await goto(resolve('/login'));
 }
 
+/** Revoke every session for this account server-side, then clear local state. */
+export async function logoutEverywhere(): Promise<void> {
+	try {
+		await api.global.post('/api/v1/auth/logout-all');
+	} catch {
+		// A failed revoke must not strand the user in a signed-in UI.
+	}
+	await logout();
+}
+
 /** Full disconnect: also forget the active profile selection. */
 export async function disconnect(): Promise<void> {
 	await logout().catch(() => {});

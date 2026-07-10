@@ -107,7 +107,7 @@
 
 		<p class="text-xs opacity-40">
 			Milestone 1 scaffold — the management shell (search, downloads, held review) lands next.
-			<a class="link" href={resolve('/connect')}>Server settings</a>
+			<a class="link" href={resolve('/settings')}>App settings</a>
 		</p>
 	</div>
 </div>
