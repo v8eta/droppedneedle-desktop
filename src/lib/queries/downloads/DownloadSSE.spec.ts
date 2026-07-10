@@ -25,9 +25,14 @@ class FakeEventSource {
 	}
 }
 
+// DESKTOP: the stream rides createEventSource (bearer-authenticated SSE over
+// the Rust transport) instead of the global EventSource — mock the module.
+vi.mock('$lib/desktop/sse', () => ({
+	createEventSource: (url: string) => new FakeEventSource(url)
+}));
+
 beforeEach(() => {
 	FakeEventSource.instances = [];
-	vi.stubGlobal('EventSource', FakeEventSource as unknown as typeof EventSource);
 });
 
 afterEach(() => {
