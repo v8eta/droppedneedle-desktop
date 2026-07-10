@@ -2,15 +2,19 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "enables the default permissions",
-  "windows": [
-    "main"
-  ],
+  "windows": ["main"],
   "permissions": [
     "core:default",
-    "http:default",
+    {
+      "identifier": "http:default",
+      "allow": [{ "url": "http://**" }, { "url": "https://**" }]
+    },
     "store:default",
     "notification:default",
     "opener:default",
-    "log:default"
+    "log:default",
+    "process:default",
+    "updater:default",
+    "window-state:default"
   ]
 }

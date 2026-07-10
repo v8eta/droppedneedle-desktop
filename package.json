@@ -1,7 +1,9 @@
 {
 	"name": "droppedneedle-desktop",
 	"private": true,
-	"version": "0.0.1",
+	"version": "0.1.0",
+	"license": "AGPL-3.0-only",
+	"packageManager": "pnpm@11.11.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -13,7 +15,8 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"tauri": "tauri"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
