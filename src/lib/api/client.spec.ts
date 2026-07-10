@@ -18,6 +18,8 @@ vi.mock('$lib/stores/authStore.svelte', () => ({
 
 import { api, ApiError, SessionExpiredError } from './client';
 import { pageFetch } from '$lib/utils/navigationAbort';
+// DESKTOP: 401s notify the session module instead of clearing/redirecting inline
+import { onSessionExpired } from '$lib/desktop/sessionEvents';
 
 const mockPageFetch = vi.mocked(pageFetch);
 const mockGlobalFetch = vi.fn();
@@ -335,10 +337,13 @@ describe('api client', () => {
 	});
 
 	describe('session expiry (401)', () => {
-		it('throws SessionExpiredError, clears the store, and redirects when authenticated', async () => {
+		// DESKTOP: upstream asserted authStore.clear + window.location.href='/login';
+		// the desktop client hands 401s to the session module (idempotent expire →
+		// SPA route), so assert the notification instead.
+		it('throws SessionExpiredError and notifies the session module when authenticated', async () => {
 			authMock.isAuthenticated = true;
-			const win = { location: { href: '' } };
-			vi.stubGlobal('window', win);
+			const expired = vi.fn();
+			onSessionExpired(expired);
 			mockPageFetch.mockResolvedValue(errorResponse(401, { detail: 'expired' }));
 
 			try {
@@ -350,8 +355,8 @@ describe('api client', () => {
 				expect((e as SessionExpiredError).code).toBe('session_expired');
 			}
 			// Never returns undefined — the Promise<T> contract is honoured by throwing.
-			expect(authMock.clear).toHaveBeenCalledOnce();
-			expect(win.location.href).toBe('/login');
+			expect(expired).toHaveBeenCalledOnce();
+			expect(authMock.clear).not.toHaveBeenCalled();
 		});
 
 		it('falls through to a plain ApiError (no redirect) when unauthenticated, e.g. bad login', async () => {

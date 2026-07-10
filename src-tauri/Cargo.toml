@@ -30,7 +30,9 @@ tauri-plugin-store = "2"
 tauri-plugin-notification = "2"
 tauri-plugin-opener = "2"
 tauri-plugin-process = "2"
-keyring = { version = "3.6.3", features = ["windows-native"] }
+# Windows-only backend: the shipping target is Windows; on Linux (headless
+# dev checks) keyring compiles with no backend instead of dragging in dbus.
+keyring = { version = "3.6.3", default-features = false, features = ["windows-native"] }
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-single-instance = "2"

@@ -4,8 +4,10 @@
 	"pathPrefix": "frontend/src",
 	"modified": [
 		"lib/api/client.ts",
+		"lib/api/client.spec.ts",
 		"lib/api/api-utils.ts",
-		"lib/utils/navigationAbort.ts"
+		"lib/utils/navigationAbort.ts",
+		"lib/utils/navigationAbort.test.ts"
 	],
 	"files": [
 		"app.css",

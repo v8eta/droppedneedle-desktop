@@ -17,17 +17,19 @@
 
 	let countdownTimer: ReturnType<typeof setInterval> | null = null;
 
-	onMount(async () => {
-		await profilesStore.init();
-		if (!profilesStore.active) {
-			await goto(resolve('/connect'));
-			return;
-		}
-		try {
-			providers = await api.global.get<AuthProviders>(AUTH_ENDPOINTS.providers);
-		} catch {
-			providers = null; // best-effort; local form still shown
-		}
+	onMount(() => {
+		void (async () => {
+			await profilesStore.init();
+			if (!profilesStore.active) {
+				await goto(resolve('/connect'));
+				return;
+			}
+			try {
+				providers = await api.global.get<AuthProviders>(AUTH_ENDPOINTS.providers);
+			} catch {
+				providers = null; // best-effort; local form still shown
+			}
+		})();
 		return () => {
 			if (countdownTimer) clearInterval(countdownTimer);
 		};

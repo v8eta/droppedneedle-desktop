@@ -23,8 +23,10 @@ Re-sync with `node scripts/sync-upstream.mjs <path-to-upstream-checkout>`
 | File | Modification |
 | --- | --- |
 | `src/lib/api/client.ts` | 401 handler → `notifySessionExpired()` instead of `window.location.href`; dropped `credentials: 'include'` (bearer-only); `globalClient` fetch → `desktopFetch` |
+| `src/lib/api/client.spec.ts` | 401 test asserts the session-expired notification instead of store-clear + redirect |
 | `src/lib/api/api-utils.ts` | `getApiUrl` resolves against the runtime server profile instead of `PUBLIC_API_URL` (rewritten) |
 | `src/lib/utils/navigationAbort.ts` | inner `fetch` → `desktopFetch` |
+| `src/lib/utils/navigationAbort.test.ts` | signal assertions functional instead of identity (transport composes signals); headers read via `Headers.get` |
 
 ## Unmodified files
 

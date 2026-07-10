@@ -55,8 +55,14 @@ describe('pageFetch', () => {
 		await pageFetch('/api/v1/test');
 
 		expect(mockFetch).toHaveBeenCalledOnce();
+		// DESKTOP: desktopFetch composes the nav signal with its own deadline via
+		// AbortSignal.any, so instance identity no longer holds — assert that a
+		// navigation abort propagates to the request signal instead.
 		const callArgs = mockFetch.mock.calls[0];
-		expect(callArgs[1]?.signal).toBe(getNavigationSignal());
+		const signal = callArgs[1]?.signal as AbortSignal;
+		expect(signal.aborted).toBe(false);
+		abortAllPageRequests();
+		expect(signal.aborted).toBe(true);
 	});
 
 	it('combines navigation signal with caller signal via AbortSignal.any', async () => {
@@ -123,7 +129,8 @@ describe('pageFetch', () => {
 		expect(mockFetch).toHaveBeenCalledOnce();
 		const callArgs = mockFetch.mock.calls[0];
 		expect(callArgs[1]?.method).toBe('GET');
-		expect((callArgs[1]?.headers as Record<string, string>)['X-Custom']).toBe('value');
+		// DESKTOP: the transport normalizes headers into a Headers instance.
+		expect((callArgs[1]?.headers as Headers).get('X-Custom')).toBe('value');
 	});
 });
 
