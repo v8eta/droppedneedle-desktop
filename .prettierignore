@@ -7,3 +7,9 @@ bun.lockb
 
 # Miscellaneous
 /static/
+
+# Vendored upstream files keep upstream's exact formatting (see VENDORED.md);
+# desktop-authored code under src/lib/desktop is still formatted.
+/src/lib/
+!/src/lib/desktop/
+/src/app.css
