@@ -34,8 +34,8 @@
 				<h1 class="text-2xl font-bold">{album.title}</h1>
 				{#if album.artist}<p class="opacity-70">{album.artist}</p>{/if}
 				<p class="mt-4 text-sm opacity-50">
-					Full album page (tracks, editions, live activity) is coming in a later milestone —
-					request and monitor from Search and Downloads meanwhile.
+					Full album page (tracks, editions, live activity) is coming in a later milestone — request
+					and monitor from Search and Downloads meanwhile.
 				</p>
 			</div>
 		</div>

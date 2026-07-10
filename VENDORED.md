@@ -20,17 +20,17 @@ Re-sync with `node scripts/sync-upstream.mjs <path-to-upstream-checkout>`
 
 ## Modified files
 
-| File                                    | Modification                                                                                                                                                    |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/lib/api/client.ts`                 | 401 handler → `notifySessionExpired()` instead of `window.location.href`; dropped `credentials: 'include'` (bearer-only); `globalClient` fetch → `desktopFetch` |
-| `src/lib/api/client.spec.ts`            | 401 test asserts the session-expired notification instead of store-clear + redirect                                                                             |
-| `src/lib/api/api-utils.ts`              | `getApiUrl` resolves against the runtime server profile instead of `PUBLIC_API_URL` (rewritten)                                                                 |
-| `src/lib/utils/navigationAbort.ts`      | inner `fetch` → `desktopFetch`                                                                                                                                  |
-| `src/lib/utils/navigationAbort.test.ts` | signal assertions functional instead of identity (transport composes signals); headers read via `Headers.get`                                                   |
-| `src/lib/queries/downloads/DownloadSSE.svelte.ts` | `new EventSource` → `createEventSource` (bearer-authenticated SSE over the Rust transport) |
-| `src/lib/components/downloads/HeldTrackReview.svelte` | audio preview src wrapped in `mediaUrl()` (dn:// authenticated proxy) |
-| `src/lib/components/AlbumCardOverlay.svelte` | full replacement: props-compatible empty overlay (upstream's play/queue/playlist hover actions are player features out of scope) |
-| `src/routes/downloads/+page.svelte` | `DiscoveryBatchList` section trimmed (discover out of scope) |
+| File                                                  | Modification                                                                                                                                                    |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/api/client.ts`                               | 401 handler → `notifySessionExpired()` instead of `window.location.href`; dropped `credentials: 'include'` (bearer-only); `globalClient` fetch → `desktopFetch` |
+| `src/lib/api/client.spec.ts`                          | 401 test asserts the session-expired notification instead of store-clear + redirect                                                                             |
+| `src/lib/api/api-utils.ts`                            | `getApiUrl` resolves against the runtime server profile instead of `PUBLIC_API_URL` (rewritten)                                                                 |
+| `src/lib/utils/navigationAbort.ts`                    | inner `fetch` → `desktopFetch`                                                                                                                                  |
+| `src/lib/utils/navigationAbort.test.ts`               | signal assertions functional instead of identity (transport composes signals); headers read via `Headers.get`                                                   |
+| `src/lib/queries/downloads/DownloadSSE.svelte.ts`     | `new EventSource` → `createEventSource` (bearer-authenticated SSE over the Rust transport)                                                                      |
+| `src/lib/components/downloads/HeldTrackReview.svelte` | audio preview src wrapped in `mediaUrl()` (dn:// authenticated proxy)                                                                                           |
+| `src/lib/components/AlbumCardOverlay.svelte`          | full replacement: props-compatible empty overlay (upstream's play/queue/playlist hover actions are player features out of scope)                                |
+| `src/routes/downloads/+page.svelte`                   | `DiscoveryBatchList` section trimmed (discover out of scope)                                                                                                    |
 
 ## Unmodified files
 
