@@ -26,9 +26,18 @@
 			"csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' http://dn.localhost data: blob:; media-src 'self' http://dn.localhost blob:; connect-src 'self' ipc: http://ipc.localhost; font-src 'self' data:"
 		}
 	},
+	"plugins": {
+		"updater": {
+			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEJFODEzNkVBN0FDMkVGRTAKUldUZzc4SjY2amFCdnNQckFKbVY3a2dmcFZTaEZoaW5NcDhOMXpKRXFhdGNKZVVVNXg3eTdNVGMK",
+			"endpoints": [
+				"https://github.com/v8eta/droppedneedle-desktop/releases/latest/download/latest.json"
+			]
+		}
+	},
 	"bundle": {
 		"active": true,
 		"targets": ["nsis"],
+		"createUpdaterArtifacts": true,
 		"icon": [
 			"icons/32x32.png",
 			"icons/128x128.png",
