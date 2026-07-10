@@ -27,17 +27,18 @@ Re-sync with `node scripts/sync-upstream.mjs <path-to-upstream-checkout>`
 | `src/lib/api/api-utils.ts`              | `getApiUrl` resolves against the runtime server profile instead of `PUBLIC_API_URL` (rewritten)                                                                 |
 | `src/lib/utils/navigationAbort.ts`      | inner `fetch` → `desktopFetch`                                                                                                                                  |
 | `src/lib/utils/navigationAbort.test.ts` | signal assertions functional instead of identity (transport composes signals); headers read via `Headers.get`                                                   |
+| `src/lib/queries/downloads/DownloadSSE.svelte.ts` | `new EventSource` → `createEventSource` (bearer-authenticated SSE over the Rust transport) |
+| `src/lib/components/downloads/HeldTrackReview.svelte` | audio preview src wrapped in `mediaUrl()` (dn:// authenticated proxy) |
+| `src/lib/components/AlbumCardOverlay.svelte` | full replacement: props-compatible empty overlay (upstream's play/queue/playlist hover actions are player features out of scope) |
+| `src/routes/downloads/+page.svelte` | `DiscoveryBatchList` section trimmed (discover out of scope) |
 
 ## Unmodified files
 
-Everything else listed in `scripts/vendored-manifest.json`, currently:
-`types.ts`, `constants.ts`, `colors.ts`, `api/client.spec.ts`,
-`queries/{QueryClient.ts, QueryProvider.svelte, IndexedDbPersister.svelte.ts, VersionQuery*.ts}`,
-`queries/auth/**`, `queries/system/**`,
-`stores/{authStore.svelte, errorModal, musicSource(+spec), serviceStatus(+spec), toast, version.svelte}.ts`,
-`utils/{abortController, dismissedPrompts, errorHandling(+spec), formatting(+spec), localStorageCache, navigationAbort.test, userScopedCaches}.ts`,
-`src/app.css`, `static/fonts/*.woff2`.
+Everything else listed in `scripts/vendored-manifest.json` (the authoritative
+ledger — ~140 files as of M2: the full downloads query+component set, search
+routes/cards, and their store/util dependency closure), plus
+`static/fonts/*.woff2`.
 
-The vendored set grows per milestone (downloads/following/library queries and
+The vendored set grows per milestone (following/library queries and
 components arrive with their screens); update the manifest and this file in
 the same PR that vendors new files.

@@ -1,5 +1,4 @@
 import { pageFetch } from '$lib/utils/navigationAbort';
-import { getApiUrl } from '$lib/api/api-utils';
 import { browser } from '$app/environment';
 import { authStore } from '$lib/stores/authStore.svelte';
 // DESKTOP: bearer transport + decoupled session-expiry (no hard redirects in a SPA shell)
@@ -122,9 +121,10 @@ function createClient(fetchFn: FetchFn): ApiClient {
 			}
 		}
 
-		const requestUrl = getApiUrl(url);
-
-		const res = await fetchFn(requestUrl, init);
+		// DESKTOP: pass the path through untouched — desktopFetch resolves it
+		// against the active profile (upstream resolved via getApiUrl, which is
+		// now the element-media resolver; see api-utils.ts).
+		const res = await fetchFn(url, init);
 
 		if (raw) return res as unknown as T;
 		return handleResponse<T>(res);

@@ -4,10 +4,29 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import QueryProvider from '$lib/queries/QueryProvider.svelte';
+	import Topbar from '$lib/desktop/Topbar.svelte';
 	import { initSessionEvents, restore } from '$lib/desktop/session';
+	import { authStore } from '$lib/stores/authStore.svelte';
+	import { downloadsActivity } from '$lib/stores/downloadsActivity.svelte';
+	import { integrationStore } from '$lib/stores/integration';
 
 	let { children } = $props();
+
+	const BARE_ROUTES = ['/connect', '/login'];
+	const showChrome = $derived(
+		authStore.isAuthenticated && !BARE_ROUTES.includes(page.url.pathname)
+	);
+
+	$effect(() => {
+		if (authStore.isAuthenticated) {
+			downloadsActivity.start();
+			void integrationStore.ensureLoaded();
+		} else {
+			downloadsActivity.stop();
+		}
+	});
 
 	let booted = $state(false);
 	let unreachable = $state(false);
@@ -63,6 +82,9 @@
 	</div>
 {:else}
 	<QueryProvider>
+		{#if showChrome}
+			<Topbar />
+		{/if}
 		{@render children()}
 	</QueryProvider>
 {/if}
