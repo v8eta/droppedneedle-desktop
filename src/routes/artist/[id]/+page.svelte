@@ -31,7 +31,7 @@
 				onerror={(e) => ((e.currentTarget as HTMLImageElement).style.opacity = '0.15')}
 			/>
 			<div>
-				<h1 class="text-2xl font-bold">{artist.name}</h1>
+				<h1 class="text-2xl font-bold">{artist.title}</h1>
 				<p class="mt-4 text-sm opacity-50">
 					Full artist page (discography, follow controls) is coming in a later milestone.
 				</p>
