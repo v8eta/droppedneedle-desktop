@@ -112,7 +112,8 @@
 									<tr>
 										<td class="max-w-56 truncate text-xs" title={s.user_agent ?? ''}>
 											{s.user_agent ?? 'unknown'}
-											{#if s.current}<span class="badge badge-accent badge-xs ml-1">this app</span>{/if}
+											{#if s.current}<span class="badge badge-accent badge-xs ml-1">this app</span
+												>{/if}
 										</td>
 										<td class="text-xs">{fmt(s.issued_at)}</td>
 										<td class="text-xs">{fmt(s.last_seen_at)}</td>

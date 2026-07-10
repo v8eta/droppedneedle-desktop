@@ -197,7 +197,9 @@
 					}}
 				>
 					<label class="form-control">
-						<span class="label-text mb-1">{tab === 'jellyfin' ? 'Jellyfin username' : 'Username'}</span>
+						<span class="label-text mb-1"
+							>{tab === 'jellyfin' ? 'Jellyfin username' : 'Username'}</span
+						>
 						<input
 							type="text"
 							class="input input-bordered w-full"
@@ -207,7 +209,9 @@
 						/>
 					</label>
 					<label class="form-control">
-						<span class="label-text mb-1">{tab === 'jellyfin' ? 'Jellyfin password' : 'Password'}</span>
+						<span class="label-text mb-1"
+							>{tab === 'jellyfin' ? 'Jellyfin password' : 'Password'}</span
+						>
 						<input
 							type="password"
 							class="input input-bordered w-full"
@@ -232,8 +236,8 @@
 
 			{#if providers?.oidc}
 				<p class="text-xs opacity-60">
-					This server also offers OIDC/SSO sign-in, which needs a browser — use the web UI for
-					that, or a local account here.
+					This server also offers OIDC/SSO sign-in, which needs a browser — use the web UI for that,
+					or a local account here.
 				</p>
 			{/if}
 		</div>
