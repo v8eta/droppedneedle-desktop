@@ -7,7 +7,7 @@
 	import { API } from '$lib/constants';
 	import { authStore } from '$lib/stores/authStore.svelte';
 	import LibraryScanProgress from '$lib/components/library/LibraryScanProgress.svelte';
-	import type { LibraryScanStatus, ManualReviewEntry } from '$lib/types';
+	import type { ManualReviewEntry } from '$lib/types';
 
 	let busy = $state(false);
 	let unmatchedCount = $state(0);

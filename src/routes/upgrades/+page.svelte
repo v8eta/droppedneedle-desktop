@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { SvelteSet } from 'svelte/reactivity';
 	import { ArrowUpCircle } from 'lucide-svelte';
 	import { resolve } from '$app/paths';
 	import { goto } from '$app/navigation';
@@ -13,7 +14,7 @@
 
 	let items = $state<CutoffUnmetItem[]>([]);
 	let loading = $state(true);
-	let upgrading = $state<Set<string>>(new Set());
+	const upgrading = new SvelteSet<string>();
 
 	async function load() {
 		loading = true;
@@ -27,7 +28,7 @@
 	}
 
 	async function upgrade(item: CutoffUnmetItem) {
-		upgrading = new Set(upgrading).add(item.release_group_mbid);
+		upgrading.add(item.release_group_mbid);
 		try {
 			await api.global.post(API.downloads.upgradeAlbum(), {
 				release_group_mbid: item.release_group_mbid,
@@ -47,9 +48,7 @@
 				type: 'error'
 			});
 		} finally {
-			const next = new Set(upgrading);
-			next.delete(item.release_group_mbid);
-			upgrading = next;
+			upgrading.delete(item.release_group_mbid);
 		}
 	}
 
