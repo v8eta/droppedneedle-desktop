@@ -36,8 +36,8 @@ browser tab does clumsily — made native.
 Download the latest `*_x64-setup.exe` from
 [Releases](https://github.com/v8eta/droppedneedle-desktop/releases) and run it.
 
-The installer is unsigned, so Windows SmartScreen will show *"Windows protected
-your PC"* on first run — click **More info → Run anyway**. (A signed build may
+The installer is unsigned, so Windows SmartScreen will show _"Windows protected
+your PC"_ on first run — click **More info → Run anyway**. (A signed build may
 come later; the app is open-source and you can build it yourself below.)
 
 The app self-updates from GitHub Releases once installed.
