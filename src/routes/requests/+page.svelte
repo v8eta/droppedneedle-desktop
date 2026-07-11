@@ -121,15 +121,15 @@
 			<EmptyState icon={Inbox} title="Nothing wanted" description="Albums the watcher keeps hunting appear here." />
 		{:else}
 			<div class="flex flex-col gap-3">
-				{#each wanted as item (item.musicbrainz_id)}
+				{#each wanted as item (item.release_group_mbid)}
 					<WantedWatchCard
 						{item}
 						onstop={async (i) => {
-							await api.global.post(API.requests.wantedStop(i.musicbrainz_id));
+							await api.global.post(API.requests.wantedStop(i.release_group_mbid));
 							await loadTab('wanted');
 						}}
 						onresume={async (i) => {
-							await api.global.post(API.requests.wantedResume(i.musicbrainz_id));
+							await api.global.post(API.requests.wantedResume(i.release_group_mbid));
 							await loadTab('wanted');
 						}}
 					/>

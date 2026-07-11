@@ -44,7 +44,7 @@
 	async function sync() {
 		syncing = true;
 		try {
-			await api.global.post(API.library.sync());
+			await api.global.post('/api/v1/library/sync');
 			await Promise.all([loadStats(), loadAlbums()]);
 		} catch {
 			/* best-effort */
