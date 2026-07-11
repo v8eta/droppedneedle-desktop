@@ -79,7 +79,8 @@
 											class="h-full w-full object-cover"
 											src={getApiUrl(`/api/v1/covers/release-group/${rg.id}?size=250`)}
 											alt=""
-											onerror={(e) => ((e.currentTarget as HTMLImageElement).style.opacity = '0.15')}
+											onerror={(e) =>
+												((e.currentTarget as HTMLImageElement).style.opacity = '0.15')}
 										/>
 									</figure>
 								</a>

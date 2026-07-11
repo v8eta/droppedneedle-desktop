@@ -85,7 +85,8 @@
 					{#if album.year}<span>{album.year}</span>{/if}
 					{#if album.track_count}<span>· {album.track_count} tracks</span>{/if}
 					{#if album.in_library}<span class="badge badge-success badge-sm">In library</span>{/if}
-					{#if album.type_info}<span class="badge badge-ghost badge-sm">{album.type_info}</span>{/if}
+					{#if album.type_info}<span class="badge badge-ghost badge-sm">{album.type_info}</span
+						>{/if}
 				</div>
 				<div class="mt-4">
 					<AlbumRequestButton
