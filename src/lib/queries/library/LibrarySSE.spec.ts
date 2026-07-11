@@ -25,9 +25,13 @@ class FakeEventSource {
 	}
 }
 
+// DESKTOP: the scan stream rides createEventSource (bearer-authenticated SSE) — mock the module
+vi.mock('$lib/desktop/sse', () => ({
+	createEventSource: (url: string) => new FakeEventSource(url)
+}));
+
 beforeEach(() => {
 	FakeEventSource.instances = [];
-	vi.stubGlobal('EventSource', FakeEventSource as unknown as typeof EventSource);
 });
 
 afterEach(() => {

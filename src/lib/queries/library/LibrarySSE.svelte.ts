@@ -1,5 +1,7 @@
 import { API } from '$lib/constants';
 import type { ScanStatus } from '$lib/types';
+// DESKTOP: bearer-authenticated SSE over the Rust transport
+import { createEventSource, type FetchEventSource } from '$lib/desktop/sse';
 
 export interface LibraryScanState {
 	status: ScanStatus;
@@ -33,7 +35,7 @@ export function createLibraryScanStream() {
 		finalizing: null
 	});
 
-	let source: EventSource | null = null;
+	let source: FetchEventSource | null = null;
 
 	function parse(e: Event): Record<string, unknown> {
 		try {
@@ -46,7 +48,8 @@ export function createLibraryScanStream() {
 	function start() {
 		if (source) return;
 		state = { ...state, status: 'scanning', errorMessage: null };
-		source = new EventSource(API.library.scanStream());
+		// DESKTOP: EventSource → createEventSource (bearer-authenticated SSE)
+		source = createEventSource(API.library.scanStream());
 
 		source.addEventListener('started', (e) => {
 			const d = parse(e);

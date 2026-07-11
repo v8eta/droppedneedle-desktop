@@ -12,6 +12,8 @@
 		"lib/queries/downloads/DownloadSSE.spec.ts",
 		"lib/queries/following/FollowingEvents.ts",
 		"lib/queries/following/FollowingEvents.spec.ts",
+		"lib/queries/library/LibrarySSE.svelte.ts",
+		"lib/queries/library/LibrarySSE.spec.ts",
 		"lib/components/downloads/HeldTrackReview.svelte",
 		"lib/components/AlbumCardOverlay.svelte",
 		"routes/downloads/+page.svelte"

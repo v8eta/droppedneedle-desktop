@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Library, RefreshCw, Search } from 'lucide-svelte';
+	import { ArrowUpCircle, Library, RefreshCw, ScanLine, Search } from 'lucide-svelte';
+	import { resolve } from '$app/paths';
 	import { api } from '$lib/api/client';
 	import { API } from '$lib/constants';
+	import { authStore } from '$lib/stores/authStore.svelte';
 	import EmptyState from '$lib/components/EmptyState.svelte';
 	import LibraryAlbumCard from '$lib/components/library/LibraryAlbumCard.svelte';
 	import { formatBytes } from '$lib/utils/formatting';
@@ -81,10 +83,22 @@
 			<Library class="h-6 w-6 text-primary" aria-hidden="true" />
 			<h1 class="text-2xl font-bold">Library</h1>
 		</div>
-		<button class="btn btn-sm" onclick={() => void sync()} disabled={syncing}>
-			<RefreshCw class="h-4 w-4 {syncing ? 'animate-spin' : ''}" />
-			Sync
-		</button>
+		<div class="flex gap-2">
+			{#if authStore.isAdmin || authStore.isTrusted}
+				<a class="btn btn-ghost btn-sm" href={resolve('/upgrades')}>
+					<ArrowUpCircle class="h-4 w-4" /> Upgrades
+				</a>
+			{/if}
+			{#if authStore.isAdmin}
+				<a class="btn btn-ghost btn-sm" href={resolve('/library/manage')}>
+					<ScanLine class="h-4 w-4" /> Manage
+				</a>
+			{/if}
+			<button class="btn btn-sm" onclick={() => void sync()} disabled={syncing}>
+				<RefreshCw class="h-4 w-4 {syncing ? 'animate-spin' : ''}" />
+				Sync
+			</button>
+		</div>
 	</div>
 
 	{#if stats}
