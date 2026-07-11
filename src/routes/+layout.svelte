@@ -11,6 +11,9 @@
 	import { authStore } from '$lib/stores/authStore.svelte';
 	import { downloadsActivity } from '$lib/stores/downloadsActivity.svelte';
 	import { integrationStore } from '$lib/stores/integration';
+	import { createFollowingEvents } from '$lib/queries/following/FollowingEvents';
+	import { startNotifications, stopNotifications } from '$lib/desktop/notifications';
+	import { initTrayNavigation } from '$lib/desktop/tray';
 
 	let { children } = $props();
 
@@ -19,12 +22,23 @@
 		authStore.isAuthenticated && !BARE_ROUTES.includes(page.url.pathname)
 	);
 
+	const followingEvents = createFollowingEvents();
+	let backgroundRunning = false;
+
 	$effect(() => {
 		if (authStore.isAuthenticated) {
-			downloadsActivity.start();
-			void integrationStore.ensureLoaded();
-		} else {
+			if (!backgroundRunning) {
+				backgroundRunning = true;
+				downloadsActivity.start();
+				void integrationStore.ensureLoaded();
+				followingEvents.start();
+				startNotifications();
+			}
+		} else if (backgroundRunning) {
+			backgroundRunning = false;
 			downloadsActivity.stop();
+			followingEvents.stop();
+			stopNotifications();
 		}
 	});
 
@@ -56,6 +70,7 @@
 
 	onMount(() => {
 		initSessionEvents();
+		void initTrayNavigation((path) => void goto(resolve(path as '/downloads')));
 		void boot();
 	});
 </script>

@@ -4,6 +4,12 @@
 	import { authStore } from '$lib/stores/authStore.svelte';
 	import { profilesStore } from '$lib/desktop/profiles.svelte';
 	import { disconnect, logout, logoutEverywhere } from '$lib/desktop/session';
+	import { isAutostartEnabled, setAutostart } from '$lib/desktop/autostart';
+	import {
+		loadNotificationPrefs,
+		setNotificationPrefs,
+		type NotificationPrefs
+	} from '$lib/desktop/notifications';
 	import { onMount } from 'svelte';
 
 	interface SessionInfo {
@@ -59,7 +65,29 @@
 		}
 	}
 
-	onMount(() => void refresh());
+	// Desktop preferences
+	let autostart = $state(false);
+	let notifPrefs = $state<NotificationPrefs>(loadNotificationPrefs());
+
+	async function toggleAutostart() {
+		const next = !autostart;
+		try {
+			await setAutostart(next);
+			autostart = next;
+		} catch {
+			/* leave as-is */
+		}
+	}
+
+	function toggleNotif(key: keyof NotificationPrefs) {
+		notifPrefs = { ...notifPrefs, [key]: !notifPrefs[key] };
+		setNotificationPrefs(notifPrefs);
+	}
+
+	onMount(() => {
+		void refresh();
+		void isAutostartEnabled().then((v) => (autostart = v));
+	});
 </script>
 
 <div class="min-h-screen bg-base-100 p-8">
@@ -132,6 +160,33 @@
 						</table>
 					</div>
 				{/if}
+			</div>
+		</div>
+
+		<div class="card bg-base-200">
+			<div class="card-body gap-3">
+				<h2 class="card-title text-base">Desktop</h2>
+				<label class="label cursor-pointer justify-between">
+					<span class="label-text">Start with Windows</span>
+					<input
+						type="checkbox"
+						class="toggle toggle-sm"
+						checked={autostart}
+						onchange={() => void toggleAutostart()}
+					/>
+				</label>
+				<div class="divider my-0 text-xs opacity-50">Notifications</div>
+				{#each [['downloads', 'Downloads finished / failed'], ['held', 'Tracks needing review'], ['releases', 'New releases & auto-downloads']] as [key, label] (key)}
+					<label class="label cursor-pointer justify-between">
+						<span class="label-text">{label}</span>
+						<input
+							type="checkbox"
+							class="toggle toggle-sm"
+							checked={notifPrefs[key as keyof NotificationPrefs]}
+							onchange={() => toggleNotif(key as keyof NotificationPrefs)}
+						/>
+					</label>
+				{/each}
 			</div>
 		</div>
 
