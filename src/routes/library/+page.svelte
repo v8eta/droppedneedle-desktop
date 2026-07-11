@@ -129,7 +129,9 @@
 		<EmptyState
 			icon={Library}
 			title="No albums"
-			description={query ? 'Nothing matches that filter.' : 'Request some music to fill your library.'}
+			description={query
+				? 'Nothing matches that filter.'
+				: 'Request some music to fill your library.'}
 		/>
 	{:else}
 		<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">

@@ -80,7 +80,11 @@
 		<span class="loading loading-dots loading-lg"></span>
 	{:else if tab === 'active'}
 		{#if active.length === 0}
-			<EmptyState icon={Inbox} title="No active requests" description="Requested albums show here while they process." />
+			<EmptyState
+				icon={Inbox}
+				title="No active requests"
+				description="Requested albums show here while they process."
+			/>
 		{:else}
 			<div class="flex flex-col gap-3">
 				{#each active as item (item.musicbrainz_id)}
@@ -97,7 +101,11 @@
 		{/if}
 	{:else if tab === 'history'}
 		{#if history.length === 0}
-			<EmptyState icon={Inbox} title="No history yet" description="Completed and failed requests are recorded here." />
+			<EmptyState
+				icon={Inbox}
+				title="No history yet"
+				description="Completed and failed requests are recorded here."
+			/>
 		{:else}
 			<div class="flex flex-col gap-3">
 				{#each history as item (item.musicbrainz_id)}
@@ -118,7 +126,11 @@
 		{/if}
 	{:else if tab === 'wanted'}
 		{#if wanted.length === 0}
-			<EmptyState icon={Inbox} title="Nothing wanted" description="Albums the watcher keeps hunting appear here." />
+			<EmptyState
+				icon={Inbox}
+				title="Nothing wanted"
+				description="Albums the watcher keeps hunting appear here."
+			/>
 		{:else}
 			<div class="flex flex-col gap-3">
 				{#each wanted as item (item.release_group_mbid)}
@@ -138,7 +150,11 @@
 		{/if}
 	{:else if tab === 'approvals'}
 		{#if approvals.length === 0}
-			<EmptyState icon={Inbox} title="Nothing to approve" description="User requests awaiting your approval land here." />
+			<EmptyState
+				icon={Inbox}
+				title="Nothing to approve"
+				description="User requests awaiting your approval land here."
+			/>
 		{:else}
 			<div class="flex flex-col gap-3">
 				{#each approvals as item (item.musicbrainz_id)}

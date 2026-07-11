@@ -6,7 +6,11 @@
 	import { getApiUrl } from '$lib/api/api-utils';
 	import { resolve } from '$app/paths';
 	import EmptyState from '$lib/components/EmptyState.svelte';
-	import type { FollowedArtist, NewRelease, NewReleasesResponse } from '$lib/queries/following/types';
+	import type {
+		FollowedArtist,
+		NewRelease,
+		NewReleasesResponse
+	} from '$lib/queries/following/types';
 
 	let artists = $state<FollowedArtist[]>([]);
 	let releases = $state<NewRelease[]>([]);
