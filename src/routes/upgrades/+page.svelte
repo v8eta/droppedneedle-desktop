@@ -36,7 +36,10 @@
 				year: item.year,
 				artist_mbid: item.artist_mbid
 			});
-			toastStore.show({ message: `Looking for a better copy of ${item.album_title}…`, type: 'info' });
+			toastStore.show({
+				message: `Looking for a better copy of ${item.album_title}…`,
+				type: 'info'
+			});
 			items = items.filter((i) => i.release_group_mbid !== item.release_group_mbid);
 		} catch (err) {
 			toastStore.show({
@@ -98,7 +101,8 @@
 							{#if item.year}· {item.year}{/if}
 						</p>
 					</a>
-					<span class="badge badge-ghost badge-sm" title="current quality">{item.current_tier}</span>
+					<span class="badge badge-ghost badge-sm" title="current quality">{item.current_tier}</span
+					>
 					<button
 						class="btn btn-primary btn-sm"
 						disabled={upgrading.has(item.release_group_mbid)}

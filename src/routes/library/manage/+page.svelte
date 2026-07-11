@@ -64,11 +64,15 @@
 		<div class="card-body gap-4">
 			<h2 class="card-title text-base">Scan</h2>
 			<p class="text-sm opacity-60">
-				A scan reconciles the library with what's on disk. A force scan re-identifies every file
-				and clears the MusicBrainz cache — slower, use it after fixing tags or paths.
+				A scan reconciles the library with what's on disk. A force scan re-identifies every file and
+				clears the MusicBrainz cache — slower, use it after fixing tags or paths.
 			</p>
 			<div class="flex flex-wrap gap-2">
-				<button class="btn btn-primary btn-sm" disabled={busy} onclick={() => void startScan(false)}>
+				<button
+					class="btn btn-primary btn-sm"
+					disabled={busy}
+					onclick={() => void startScan(false)}
+				>
 					<ScanLine class="h-4 w-4" /> Scan now
 				</button>
 				<button class="btn btn-sm" disabled={busy} onclick={() => void startScan(true)}>
@@ -86,15 +90,18 @@
 		<div class="card-body gap-3">
 			<h2 class="card-title text-base">
 				<FileQuestion class="h-5 w-5" /> Unmatched files
-				{#if unmatchedCount > 0}<span class="badge badge-warning badge-sm">{unmatchedCount}</span>{/if}
+				{#if unmatchedCount > 0}<span class="badge badge-warning badge-sm">{unmatchedCount}</span
+					>{/if}
 			</h2>
 			{#if unmatchedCount === 0}
-				<p class="text-sm opacity-60">No unmatched files — everything on disk mapped to a release.</p>
+				<p class="text-sm opacity-60">
+					No unmatched files — everything on disk mapped to a release.
+				</p>
 			{:else}
 				<p class="text-sm opacity-70">
 					{unmatchedCount} file{unmatchedCount === 1 ? '' : 's'} couldn't be matched to a MusicBrainz
-					release. Resolving each one (picking the right release) is best done in the web UI's
-					unmatched matcher for now.
+					release. Resolving each one (picking the right release) is best done in the web UI's unmatched
+					matcher for now.
 				</p>
 			{/if}
 		</div>
