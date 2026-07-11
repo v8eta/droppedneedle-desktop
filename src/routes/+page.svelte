@@ -50,7 +50,10 @@
 	</form>
 
 	<div class="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-		<a href={resolve('/downloads')} class="stat rounded-xl bg-base-200 transition hover:bg-base-300">
+		<a
+			href={resolve('/downloads')}
+			class="stat rounded-xl bg-base-200 transition hover:bg-base-300"
+		>
 			<div class="stat-figure text-primary"><Download class="h-6 w-6" /></div>
 			<div class="stat-title">Downloading</div>
 			<div class="stat-value text-2xl">{downloadsActivity.count}</div>
