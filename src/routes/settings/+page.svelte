@@ -10,6 +10,7 @@
 		setNotificationPrefs,
 		type NotificationPrefs
 	} from '$lib/desktop/notifications';
+	import { THEMES, getTheme, setTheme } from '$lib/desktop/theme';
 	import { onMount } from 'svelte';
 
 	interface SessionInfo {
@@ -68,6 +69,12 @@
 	// Desktop preferences
 	let autostart = $state(false);
 	let notifPrefs = $state<NotificationPrefs>(loadNotificationPrefs());
+	let theme = $state(getTheme());
+
+	function onThemeChange(next: string) {
+		theme = next;
+		setTheme(next); // applies instantly + persists
+	}
 
 	async function toggleAutostart() {
 		const next = !autostart;
@@ -166,6 +173,18 @@
 		<div class="card bg-base-200">
 			<div class="card-body gap-3">
 				<h2 class="card-title text-base">Desktop</h2>
+				<label class="label justify-between">
+					<span class="label-text">Theme</span>
+					<select
+						class="select select-bordered select-sm w-48"
+						value={theme}
+						onchange={(e) => onThemeChange((e.currentTarget as HTMLSelectElement).value)}
+					>
+						{#each THEMES as t (t.name)}
+							<option value={t.name}>{t.label}</option>
+						{/each}
+					</select>
+				</label>
 				<label class="label cursor-pointer justify-between">
 					<span class="label-text">Start with Windows</span>
 					<input

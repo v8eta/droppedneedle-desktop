@@ -1,11 +1,15 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
+/* DESKTOP: enable all daisyUI themes so the app can offer a live theme picker
+   (see $lib/desktop/theme). DroppedNeedle's signature palette below stays the
+   default; every built-in theme is selectable in App settings. */
 @plugin "daisyui" {
-	themes: dark --default;
+	themes: all;
 }
 @plugin "daisyui/theme" {
-	name: 'dark';
+	name: 'droppedneedle';
 	default: true;
+	color-scheme: dark;
 	--color-base-300: #1f271b;
 	--color-base-200: #161d12;
 	--color-base-100: #0d120a;

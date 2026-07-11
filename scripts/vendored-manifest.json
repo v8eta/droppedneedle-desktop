@@ -3,6 +3,7 @@
 	"pinnedCommit": "e6ea676b5a26a2c93c6adf6d96cf84f95f7be680",
 	"pathPrefix": "frontend/src",
 	"modified": [
+		"app.css",
 		"lib/api/client.ts",
 		"lib/api/client.spec.ts",
 		"lib/api/api-utils.ts",
