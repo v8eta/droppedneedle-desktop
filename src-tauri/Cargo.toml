@@ -1,6 +1,6 @@
 [package]
 name = "droppedneedle-desktop"
-version = "0.4.3"
+version = "0.4.4"
 description = "Unofficial Windows desktop management client for DroppedNeedle"
 authors = ["Touki"]
 license = "AGPL-3.0-only"

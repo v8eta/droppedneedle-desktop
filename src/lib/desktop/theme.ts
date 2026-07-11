@@ -10,7 +10,7 @@ export const DEFAULT_THEME = 'touki';
 
 /** touki (custom synthwave) + droppedneedle + the daisyUI v5 built-ins. */
 export const THEMES: { name: string; label: string; dark: boolean }[] = [
-	{ name: 'touki', label: 'Touki', dark: true },
+	{ name: 'touki', label: 'touki', dark: true },
 	{ name: 'droppedneedle', label: 'DroppedNeedle', dark: true },
 	{ name: 'dark', label: 'Dark', dark: true },
 	{ name: 'light', label: 'Light', dark: false },
