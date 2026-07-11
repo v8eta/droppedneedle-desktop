@@ -96,6 +96,7 @@ async function notify(title: string, body: string): Promise<void> {
 
 let queueTimer: ReturnType<typeof setInterval> | null = null;
 let heldTimer: ReturnType<typeof setInterval> | null = null;
+let unsubscribeToasts: (() => void) | null = null;
 let prevStatus = new Map<string, DownloadStatus>();
 let knownHeld = new Set<number>();
 let primed = false; // first poll seeds baselines without notifying
@@ -112,16 +113,17 @@ async function pollQueue(): Promise<void> {
 	void setTrayStatus({ active, held: knownHeld.size });
 
 	if (primed) {
+		// OS-notify only: the Downloads screen is the in-app surface for these,
+		// and going through toastStore would double-fire via the toast→OS bridge.
 		for (const t of items) {
 			const prev = prevStatus.get(t.id);
 			if (prev === undefined || !isActiveDownloadStatus(prev)) continue;
-			if ((t.status === 'completed' || t.status === 'partial') && prefs.downloads) {
+			if (!prefs.downloads) continue;
+			if (t.status === 'completed' || t.status === 'partial') {
 				const name = t.album_title || 'An album';
-				toastStore.show({ message: `${name} landed in your library.`, type: 'success' });
 				void notify('Download complete', `${name} landed in your library.`);
-			} else if (t.status === 'failed' && prefs.downloads) {
+			} else if (t.status === 'failed') {
 				const name = t.album_title || 'A download';
-				toastStore.show({ message: `${name} failed after all retries.`, type: 'error' });
 				void notify('Download failed', `${name} failed after all retries.`);
 			}
 		}
@@ -142,11 +144,11 @@ async function pollHeld(): Promise<void> {
 	const items = res.items ?? [];
 	const ids = new Set(items.map((h) => h.id));
 	if (primed) {
+		// OS-notify only (see pollQueue) — the held section on Downloads is the in-app surface.
 		for (const h of items) {
 			if (knownHeld.has(h.id)) continue;
 			if (!prefs.held) continue;
 			const track = h.track_title || h.original_filename || 'A track';
-			toastStore.show({ message: `Couldn't verify ${track} — needs your ear.`, type: 'info' });
 			void notify('Needs your review', `Couldn't verify ${track} — check the audio.`);
 		}
 	}
@@ -167,9 +169,12 @@ export function startNotifications(): void {
 	queueTimer = setInterval(() => void pollQueue(), 15_000);
 	heldTimer = setInterval(() => void pollHeld(), 30_000);
 
-	// Mirror any success/info toast raised elsewhere (e.g. FollowingEvents'
-	// wanted-fulfilled / auto-download) to an OS notification when unfocused.
-	toastStore.subscribe((toast) => {
+	// Mirror success/info toasts raised elsewhere (FollowingEvents' wanted-fulfilled /
+	// auto-download / new-release) to an OS notification when unfocused. The poll-diff
+	// watcher deliberately does NOT route through toastStore, so this only ever sees
+	// following-originated toasts (no double-fire). Store the unsubscribe so a
+	// logout→login cycle doesn't stack duplicate subscriptions.
+	unsubscribeToasts = toastStore.subscribe((toast) => {
 		if (!toast || !prefs.releases) return;
 		if (toast.type === 'error') return; // errors stay in-app
 		void notify('DroppedNeedle', toast.message);
@@ -180,6 +185,8 @@ export function stopNotifications(): void {
 	if (queueTimer) clearInterval(queueTimer);
 	if (heldTimer) clearInterval(heldTimer);
 	queueTimer = heldTimer = null;
+	unsubscribeToasts?.();
+	unsubscribeToasts = null;
 	prevStatus = new Map();
 	knownHeld = new Set();
 	primed = false;
