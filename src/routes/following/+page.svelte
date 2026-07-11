@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Heart, Disc3, ArrowRight } from 'lucide-svelte';
+	import { Heart, ArrowRight } from 'lucide-svelte';
 	import { api } from '$lib/api/client';
 	import { API } from '$lib/constants';
 	import { getApiUrl } from '$lib/api/api-utils';

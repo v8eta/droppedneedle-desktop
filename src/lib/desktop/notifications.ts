@@ -116,11 +116,11 @@ async function pollQueue(): Promise<void> {
 			const prev = prevStatus.get(t.id);
 			if (prev === undefined || !isActiveDownloadStatus(prev)) continue;
 			if ((t.status === 'completed' || t.status === 'partial') && prefs.downloads) {
-				const name = t.album || 'An album';
+				const name = t.album_title || 'An album';
 				toastStore.show({ message: `${name} landed in your library.`, type: 'success' });
 				void notify('Download complete', `${name} landed in your library.`);
 			} else if (t.status === 'failed' && prefs.downloads) {
-				const name = t.album || 'A download';
+				const name = t.album_title || 'A download';
 				toastStore.show({ message: `${name} failed after all retries.`, type: 'error' });
 				void notify('Download failed', `${name} failed after all retries.`);
 			}
