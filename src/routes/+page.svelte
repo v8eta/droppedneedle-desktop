@@ -18,6 +18,7 @@
 	function doSearch(e: SubmitEvent) {
 		e.preventDefault();
 		const q = query.trim();
+		// eslint-disable-next-line svelte/no-navigation-without-resolve -- resolve()'d path with a query suffix
 		if (q) void goto(`${resolve('/search')}?q=${encodeURIComponent(q)}`);
 	}
 
