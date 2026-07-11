@@ -8,7 +8,6 @@
 }
 @plugin "daisyui/theme" {
 	name: 'droppedneedle';
-	default: true;
 	color-scheme: dark;
 	--color-base-300: #1f271b;
 	--color-base-200: #161d12;
@@ -17,6 +16,33 @@
 	--color-primary-content: #071520;
 	--color-accent: #bbdb9b;
 	--color-accent-content: #0f1a0a;
+}
+/* DESKTOP: Touki's signature theme — synthwave: deep violet-black, neon
+   magenta-pink brand, electric purple + cyan (matches the qui Synthwave look). */
+@plugin "daisyui/theme" {
+	name: 'touki';
+	default: true;
+	color-scheme: dark;
+	--color-base-100: #17101f;
+	--color-base-200: #1f1630;
+	--color-base-300: #2c1f45;
+	--color-base-content: #f3e9ff;
+	--color-primary: #ff45c8;
+	--color-primary-content: #23001a;
+	--color-secondary: #b16cff;
+	--color-secondary-content: #1a0733;
+	--color-accent: #2ff3f0;
+	--color-accent-content: #002827;
+	--color-neutral: #241635;
+	--color-neutral-content: #e7d9f7;
+	--color-info: #58a6ff;
+	--color-info-content: #001636;
+	--color-success: #4ade80;
+	--color-success-content: #04240f;
+	--color-warning: #fbbf24;
+	--color-warning-content: #2a1c00;
+	--color-error: #ff5c7a;
+	--color-error-content: #2a0410;
 }
 
 /* Self-hosted (SIL OFL) so no external font calls; Latin + Latin-ext subsets */
